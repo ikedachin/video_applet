@@ -52,6 +52,14 @@ export default function App() {
       timecodes.map(t => ({...t, text: t.text.replaceAll("\\'", "'")}))
     )
 
+  const setTimecodes2 = ({timecodes}) =>
+    setTimecodeList(
+      timecodes.map(t => ({...t,
+        description: t.description.replaceAll("\\'", "'"),
+        advice: t.advice.replaceAll("\\'", "'"),
+        }))
+    )
+
   const onModeSelect = async mode => {
     setActiveMode(mode)
     setIsLoading(true)
@@ -70,7 +78,7 @@ export default function App() {
       functionDeclarations: functions({
         set_timecodes: setTimecodes,
         set_timecodes_with_objects: setTimecodes,
-        score_of_manner_with_advice: setTimecodes, 
+        score_of_manner_with_advice: setTimecodes2, 
         set_timecodes_with_numeric_values: ({timecodes}) =>
           setTimecodeList(timecodes)
       })
@@ -83,7 +91,7 @@ export default function App() {
       console.log(call);({
         set_timecodes: setTimecodes,
         set_timecodes_with_objects: setTimecodes,
-        score_of_manner_with_advice: setTimecodes, 
+        score_of_manner_with_advice: setTimecodes2, 
         set_timecodes_with_numeric_values: ({timecodes}) =>
           setTimecodeList(timecodes)
       })[call.name](call.args)
@@ -282,13 +290,14 @@ export default function App() {
                 <thead>
                   <tr>
                     <th>Time</th>
+                    <th>Description</th>
                     <th>Advice</th>
                     <th>Score</th>
 
                   </tr>
                 </thead>
                 <tbody>
-                  {timecodeList.map(({time, text, scores}, i) => (
+                  {timecodeList.map(({time, description, advice, scores}, i) => (
                     <tr
                       key={i}
                       role="button"
@@ -297,7 +306,8 @@ export default function App() {
                       <td>
                         <time>{time}</time>
                       </td>
-                      <td>{text}</td>
+                      <td>{description}</td>
+                      <td>{advice}</td>
                       <td>{scores}</td>
                     </tr>
                   ))}

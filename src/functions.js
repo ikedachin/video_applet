@@ -99,7 +99,7 @@ const functions = [
   {
     name: 'score_of_manner_with_advice',
     description:
-      'Set the timecodes for the video and include text to advice for improvement manner, evaluation score of manner.',
+      'Set the timecodes for the video and include description of action and advice for improvement manner, evaluation score of manner.',
     parameters: {
         type: 'object',
         properties: {
@@ -111,14 +111,17 @@ const functions = [
                 time: {
                     type: 'string'
                   },
-                  text: {
+                  description: {
+                      type: 'string'
+                  },
+                  advice: {
                       type: 'string'
                   },
                   scores: {
-                      type: 'string'
+                      type: 'number'
                   },
             },
-            required: ['time', 'text', 'scores']
+            required: ['time', 'description', 'advice', 'scores']
         }
         }
         },
